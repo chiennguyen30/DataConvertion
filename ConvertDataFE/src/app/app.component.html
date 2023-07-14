@@ -1,0 +1,162 @@
+<style>
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+
+  #main {
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f7f7f7;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border-radius: 15px;
+  }
+
+
+  h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .main-form {
+    margin: 0px 0px 15px 0px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .main-form img {
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .data-form {
+    display: flex;
+  }
+
+  .data-to {
+    display: flex;
+
+  }
+
+  label {
+    line-height: 30px;
+    margin-right: 10px;
+  }
+
+  textarea {
+
+  }
+
+  select {
+    width: 170px;
+    height: 30px;
+    border-radius: 15px;
+  }
+
+
+  #result {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    height: 100px;
+    width: 30vh;
+    overflow: auto;
+    margin-left: 20px;
+  }
+
+
+  button {
+    width: 10rem;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 30px
+  }
+
+  button:hover {
+    background-color: #3e8e41;
+  }
+
+  .form-layout {
+    display: flex;
+    justify-content: space-between;
+  }
+  #form-data .data-convert{
+    margin: 20px auto;
+  }
+</style>
+<body>
+
+<div id="main">
+  <h1>Chuyển đổi dữ liệu</h1>
+  <!--submit den convertData de xu ly logic-->
+  <form (ngSubmit)="showImage = true; convertData()" id="form-data">
+    <div class="main-form" >
+      <div class="data-form">
+        <label for="from">From:</label>
+        <select id="from" [(ngModel)]="from" name="from">
+          <option value="String">String</option>
+          <option value="Base64">Base64</option>
+          <option value="Hex">Hex</option>
+          <option value="Binary">Binary</option>
+        </select>
+      </div>
+<!--      <img src="./assets/arrow-left-right.svg" (click)="reverseConversion()" [hidden]="!isHidden || result === 'Unknown Error'">-->
+      <img src="./assets/arrow-left-right.svg" [hidden]="!showImage || result === 'Unknown Error'" (click)="reverseConversion()">
+      <div class="data-to">
+        <label for="to">To:</label>
+        <select id="to" [(ngModel)]="to" name="to">
+          <option value="String">String</option>
+          <option value="Base64">Base64</option>
+          <option value="Hex">Hex</option>
+          <option value="Binary">Binary</option>
+        </select>
+      </div>
+    </div>
+    <div>
+    </div>
+    <div class="form-layout">
+      <!--Liên kết hai chiều dữ liệu giữa data và giá trị trong text, khi giá trị trong text
+      thay đổi, biến data trong mã TypeScript tương ứng cũng sẽ thay đổi và ngược lại.-->
+    <!--onchange de goi ham convertData moi khi data thay doi-->
+      <textarea id="data" [(ngModel)]="data" (ngModelChange)="convertData()" rows="6" cols="28" name="data"></textarea>
+      <div id="result"  [style.color]="result === 'Unknown Error' ? 'red' : null">{{ result }}</div>
+    </div>
+    <button type="submit" class="data-convert">Convert</button>
+  </form>
+</div>
+
+</body>
+
