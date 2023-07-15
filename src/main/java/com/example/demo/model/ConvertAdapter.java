@@ -7,6 +7,8 @@ import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import static com.example.demo.config.configData.convertBinaryToByteArray;
+import static com.example.demo.config.configData.convertHexDigitToBinary;
 import static org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder.decode;
 
 @Configuration
@@ -17,7 +19,7 @@ public class ConvertAdapter {
         return stringtostring;
     }
 
-    
+
     /*convert form String*/
     // String to Base64
     public static String convertStringToBase64(String stringToBase){
@@ -46,7 +48,6 @@ public class ConvertAdapter {
     }
 
 
-    
     /*convert form Base64*/
     // base to string
     public String convertBase64ToString(String base64ToString)  {
@@ -84,7 +85,7 @@ public class ConvertAdapter {
         return bb.toString();
     }
 
-    
+
 
     /*convert form Hex*/
     // hex to byte
@@ -122,26 +123,13 @@ public class ConvertAdapter {
     // Hex to binary
     public static String convertHexToBinary(String hexString) {
         String binaryString = "";
-        String hexDigits = "0123456789ABCDEF";
         for (int i = 0; i < hexString.length(); i++) {
-            char hexDigit = hexString.charAt(i); // lay hexa tai vi tri i
-            // lay gtri thap phan tuong ung voi ky tu hexa dung indexOf
-            int decimalValue = hexDigits.indexOf(hexDigit);
-            // chuyen thap phan ve chuoi nhi phan
-            String binaryValue = Integer.toBinaryString(decimalValue);
-            // them  0 vao dau neu chuoi co it hon 4 so
-            while (binaryValue.length() < 4) {
-                binaryValue = "0" + binaryValue;
-            }
-            // gán binary vao ket qua
-            binaryString += binaryValue;
+            char hexDigit = hexString.charAt(i); // lấy ký tự hệ thập lục phân ở vị trí i
+            String binaryValue = convertHexDigitToBinary(hexDigit); // chuyển đổi ký tự hệ thập lục phân thành chuỗi nhị phân
+            binaryString += binaryValue; // ghép chuỗi nhị phân vào chuỗi kết quả
         }
-        // Trả về chuỗi ký tự nhị phân
         return binaryString;
     }
-
-
-    
     /*convert form binary*/
     // binary to string
     public static String convertBinaryToString(String binaryToString) {
@@ -160,16 +148,26 @@ public class ConvertAdapter {
     }
 
     // binary to base64
-    public static String convertBinaryToBase64(String binaryToBase64)  {
-        return Base64.encodeBase64String(binaryToBase64.getBytes());
+
+    public static String convertBinaryToBase64(String binaryString) {
+        // Chuyển đổi chuỗi binary thành mảng byte
+        byte[] binaryData = convertBinaryToByteArray(binaryString);
+
+        // Chuyển đổi mảng byte thành chuỗi Base64
+        String base64String = Base64.encodeBase64String(binaryData);
+
+        // Trả về chuỗi Base64
+        return base64String;
     }
 
-    public static String convertBinaryToHex(String bin) {
+
+    // binary to hex
+    public static String convertBinaryToHex(String binary) {
         // chuyen tu binary thanh so hex va luu vao hex
-        String hex = Long.toHexString(Long.parseLong(bin, 2));
+        String hex = Long.toHexString(Long.parseLong(binary, 2));
         // format chuoi hex sao cho do dai bang do dai cua binary /4 va lam tron nen
         // so 0 o dau de chac chan do dai luon dung
+        return String.format("%" + (int)(Math.ceil(binary.length() / 4.0)) + "s", hex).replace(' ', '0');
+    }
 
-        return String.format("%" + (int)(Math.ceil(bin.length() / 4.0)) + "s", hex).replace(' ', '0');
-    }  
 }
