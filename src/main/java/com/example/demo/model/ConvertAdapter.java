@@ -17,6 +17,7 @@ public class ConvertAdapter {
         return stringtostring;
     }
 
+    
     /*convert form String*/
     // String to Base64
     public static String convertStringToBase64(String stringToBase){
@@ -45,6 +46,7 @@ public class ConvertAdapter {
     }
 
 
+    
     /*convert form Base64*/
     // base to string
     public String convertBase64ToString(String base64ToString)  {
@@ -82,6 +84,7 @@ public class ConvertAdapter {
         return bb.toString();
     }
 
+    
 
     /*convert form Hex*/
     // hex to byte
@@ -137,6 +140,8 @@ public class ConvertAdapter {
         return binaryString;
     }
 
+
+    
     /*convert form binary*/
     // binary to string
     public static String convertBinaryToString(String binaryToString) {
@@ -166,30 +171,5 @@ public class ConvertAdapter {
         // so 0 o dau de chac chan do dai luon dung
 
         return String.format("%" + (int)(Math.ceil(bin.length() / 4.0)) + "s", hex).replace(' ', '0');
-    }
-
-
-
-
-
-    /*convert
-
-    // Byte to String
-    public static String convertByteToString(byte[] bytes) {
-        return new String(bytes, StandardCharsets.UTF_8);
-    }
-
-    // Byte to Base64
-    public static String convertByteToBase64(byte[] bytes)  {
-        String base64 = Base64.encodeBase64String(bytes);
-        return base64;
-    }
-
-    // Byte to Hex
-    public static String convertByteToHex(byte[] bytes)  {
-        String hex = DatatypeConverter.printHexBinary(bytes);
-        return hex;
-    }
-
- form Byte*/
+    }  
 }
