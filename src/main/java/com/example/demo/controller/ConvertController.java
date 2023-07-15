@@ -104,17 +104,18 @@ public class ConvertController {
     }
     private boolean isBase64(String input) {
         try {
-            // Giải mã chuỗi đầu vào
+            // giai ma dau vao
             byte[] decoded = Base64.getDecoder().decode(input);
             // Nếu không có ngoại lệ, chuỗi đầu vào là chuỗi Base64 hợp lệ
+            // neu k co ngoai le dau vao chuoi base64 hop le
             return true;
         } catch (IllegalArgumentException e) {
-            // Nếu có ngoại lệ, chuỗi đầu vào không phải là chuỗi Base64 hợp lệ
+            // neu co ngoai le dau vao chuoi base64 k hop le
             return false;
         }
     }
     private boolean isHex(String input) {
-        // Kiểm tra xem chuỗi đầu vào chỉ chứa các ký tự hexa hợp lệ
+        // kiem xem co nhap dung chuoi ky tu cua hex k
         return input.matches("[0-9A-Fa-f]+");
     }
 }
